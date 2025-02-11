@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { getAllContract } from "../api/contrat";
 
 const Home = () => {
   return (
-    <div className="flex items-center justify-center h-screen">
-      <h1 className="text-4xl font-bold text-center text-BLUE-400">
-        Welcome to Vite + React + Tailwind CSS
-      </h1>
+    <div>
+      <h1>Liste des contrats:</h1>
     </div>
   );
 };
+
 export default Home;

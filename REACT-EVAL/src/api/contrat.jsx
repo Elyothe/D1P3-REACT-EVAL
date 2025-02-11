@@ -42,3 +42,25 @@ export const getContractByStatus = async (status) => {
     return {};
   }
 };
+
+export const addContract = async (title, description, reward) => {
+  try {
+    const response = await fetch("/api/contracts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ title, description, reward }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Erreur lors de la création du contrat");
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    console.error("Une erreur est survenue:", err);
+    return null;
+  }
+};

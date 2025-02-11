@@ -8,6 +8,7 @@ import {
 import ContractCard from "../components/ContractCard";
 import Header from "../components/header";
 import SearchBar from "../components/SearchBar";
+import AddContratCard from "../components/AddContratCard";
 
 const Contrat = () => {
   const [contracts, setContracts] = useState([]);
@@ -15,7 +16,7 @@ const Contrat = () => {
   const [statusFilter, setStatusFilter] = useState("");
   const [error, setError] = useState(null);
 
-  const navigate = useNavigate(); // Initialisation du hook useNavigate
+  const navigate = useNavigate();
 
   const fetchAllContracts = async () => {
     try {
@@ -77,7 +78,6 @@ const Contrat = () => {
         <h1 className="text-4xl font-bold text-center text-blue-500 mb-8">
           Liste des Contrats
         </h1>
-
         {error ? (
           <div>{error}</div>
         ) : (
@@ -96,6 +96,10 @@ const Contrat = () => {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+              <div className="flex justify-center sm:col-span-1 md:col-span-1">
+                <AddContratCard />
+              </div>
+
               {contracts.length > 0 ? (
                 contracts.map((contract) => (
                   <ContractCard

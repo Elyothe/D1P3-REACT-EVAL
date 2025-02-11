@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getAllContract } from "../api/contrat";
+import { getAllContracts } from "../api/contrat";
 
 const Home = () => {
   return (
@@ -8,5 +8,4 @@ const Home = () => {
     </div>
   );
 };
-
 export default Home;

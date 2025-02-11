@@ -1,5 +1,5 @@
 // Définir l'URL de base de l'API
-export const getAllContract = async () => {
+export const getAllContracts = async () => {
   try {
     const response = await fetch(`/api/contracts`);
     const data = await response.json();

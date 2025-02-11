@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // Importation du hook useNavigate
 import {
   getContractByTitle,
   getContractByStatus,
@@ -13,6 +14,8 @@ const Contrat = () => {
   const [titleFilter, setTitleFilter] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
   const [error, setError] = useState(null);
+
+  const navigate = useNavigate(); // Initialisation du hook useNavigate
 
   const fetchAllContracts = async () => {
     try {
@@ -62,6 +65,11 @@ const Contrat = () => {
     setStatusFilter(query);
   };
 
+  // Fonction pour rediriger vers la page des détails d'un contrat
+  const handleContractClick = (contractId) => {
+    navigate(`/ContratDetails/${contractId}`); // Redirection avec l'ID du contrat
+  };
+
   return (
     <div className="bg-background min-h-screen text-black">
       <Header />
@@ -90,7 +98,11 @@ const Contrat = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
               {contracts.length > 0 ? (
                 contracts.map((contract) => (
-                  <ContractCard key={contract.id} contract={contract} />
+                  <ContractCard
+                    key={contract.id}
+                    contract={contract}
+                    onClick={handleContractClick}
+                  />
                 ))
               ) : (
                 <div className="flex justify-center col-span-full text-center mt-4">

@@ -11,9 +11,15 @@ const Header = () => {
         <div className="flex items-center space-x-4">
           <Link
             to="/Contrat"
-            className="text-black font-afacad hover:text-yellow-400"
+            className="text-black font-afacad hover:text-gray-200"
           >
             Contrat
+          </Link>
+          <Link
+            to="/Login"
+            className="text-black font-afacad hover:text-gray-200"
+          >
+            My Account
           </Link>
         </div>
       </div>

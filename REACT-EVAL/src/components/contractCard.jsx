@@ -1,6 +1,6 @@
 import React from "react";
 
-const ContractCard = ({ contract, onClick }) => {
+const ContractCard = ({ contract, onClick, onEdit }) => {
   return (
     <div
       className="bg-white shadow-lg rounded-lg p-4 mb-4 w-80 cursor-pointer hover:bg-gray-200"
@@ -13,6 +13,17 @@ const ContractCard = ({ contract, onClick }) => {
       <p className="text-gray-600">
         <strong>Status:</strong> {contract.status}
       </p>
+      <div className="mt-4 flex justify-end">
+        <button
+          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          onClick={(e) => {
+            e.stopPropagation();
+            onEdit(contract);
+          }}
+        >
+          Modifier
+        </button>
+      </div>
     </div>
   );
 };

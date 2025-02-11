@@ -1,33 +1,26 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { addContract } from "../api/contrat";
+import { useLocation, useNavigate } from "react-router-dom";
+import { updateContract } from "../api/contrat";
 import Header from "../components/header";
 
-const NewContract = () => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [reward, setReward] = useState("");
-  const [error, setError] = useState(null);
+const ChangeContrat = () => {
+  const location = useLocation();
   const navigate = useNavigate();
+
+  const contract = location.state.contract;
+
+  const [title, setTitle] = useState(contract?.title || "");
+  const [description, setDescription] = useState(contract?.description || "");
+  const [reward, setReward] = useState(contract?.reward || "");
+  const [error, setError] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!title || !description || !reward) {
-      setError("Tous les champs sont obligatoires");
-      return;
-    }
-
     try {
-      const newContract = await addContract(title, description, reward);
-      if (newContract) {
-        navigate("/ContratDetails", { state: { contract: newContract } });
-      } else {
-        setError("Erreur lors de la création du contrat");
-      }
+      await updateContract(contract.id, { title, description, reward });
+      navigate("/Contrat");
     } catch (err) {
-      console.error(err);
-      setError("Une erreur est survenue");
+      setError("Erreur lors de la mise à jour du contrat");
     }
   };
 
@@ -36,9 +29,7 @@ const NewContract = () => {
       <Header />
       <div className="bg-gray-100 min-h-screen flex items-center justify-center">
         <div className="bg-white shadow-lg rounded-lg p-8 max-w-md w-full">
-          <h1 className="text-2xl font-bold text-gray-800 mb-4">
-            Créer un nouveau contrat
-          </h1>
+          <h1 className="text-2xl font-bold mb-4">Modifier le contrat</h1>
           {error && <div className="text-red-500 mb-4">{error}</div>}
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
@@ -71,7 +62,7 @@ const NewContract = () => {
               type="submit"
               className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
             >
-              Créer le contrat
+              Modifier le contrat
             </button>
           </form>
         </div>
@@ -80,4 +71,4 @@ const NewContract = () => {
   );
 };
 
-export default NewContract;
+export default ChangeContrat;

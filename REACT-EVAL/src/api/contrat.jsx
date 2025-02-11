@@ -64,3 +64,17 @@ export const addContract = async (title, description, reward) => {
     return null;
   }
 };
+
+export const updateContract = async (id, updatedContract) => {
+  const response = await fetch(`/api/contracts/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(updatedContract),
+  });
+  if (!response.ok) {
+    throw new Error("Erreur lors de la mise à jour du contrat");
+  }
+  return response.json();
+};

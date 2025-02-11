@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; // Importation du hook useNavigate
+import { useNavigate } from "react-router-dom";
 import {
   getContractByTitle,
   getContractByStatus,
   getAllContracts,
 } from "../api/contrat";
 import ContractCard from "../components/ContractCard";
-import Header from "../components/header";
+import Header from "../components/Header";
 import SearchBar from "../components/SearchBar";
 import AddContratCard from "../components/AddContratCard";
 
@@ -66,9 +66,12 @@ const Contrat = () => {
     setStatusFilter(query);
   };
 
-  // Fonction pour rediriger vers la page des détails d'un contrat
-  const handleContractClick = (contractId) => {
-    navigate(`/ContratDetails/${contractId}`); // Redirection avec l'ID du contrat
+  const handleContractClick = (contract) => {
+    navigate("/ContratDetails", { state: { contract } });
+  };
+
+  const handleEditContract = (contract) => {
+    navigate("/ChangeContrat", { state: { contract } });
   };
 
   return (
@@ -105,7 +108,8 @@ const Contrat = () => {
                   <ContractCard
                     key={contract.id}
                     contract={contract}
-                    onClick={handleContractClick}
+                    onClick={() => handleContractClick(contract)}
+                    onEdit={() => handleEditContract(contract)}
                   />
                 ))
               ) : (
